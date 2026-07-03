@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakElize - Manager Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-logo">MakElize</div>
+        <div class="sidebar-role">Maintenance Manager</div>
+
+        <ul class="sidebar-nav">
+            <li class="active" onclick="showSection('section-requests', this)">EM Requests</li>
+            <li onclick="showSection('section-assign', this)">Assign Asset</li>
+            <li onclick="showSection('section-assignments', this)">All Assignments</li>
+            <li onclick="showSection('section-received', this)">Work Received Forms</li>
+            <li onclick="showSection('section-completions', this)">Completion Forms</li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <span id="manager-name">Loading...</span>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <!-- EM REQUESTS SECTION -->
+        <div id="section-requests" class="page-section active">
+            <p class="page-title">Emergency Maintenance Requests</p>
+            <p class="page-description">
+                The list below shows all open emergency maintenance requests sorted by priority.
+                Very High priority requests appear first.
+            </p>
+             <p class="page-description">All open EM requests sorted by priority. Very High appears first.</p>
+
+            <div class="card">
+                <h2>List of Assets Requesting EM</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset SN</th>
+                                <th>Asset Name</th>
+                                <th>Request Date</th>
+                                <th>Employee Full Name</th>
+                                <th>Department</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requests-table-body">
+                            <tr>
+                                <td colspan="6" class="no-data">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <br>
+                <button class="btn btn-secondary" disabled style="cursor: not-allowed;">Manage Request</button>
+                <div id="requests-message"></div>
+            </div>
+        </div>
+
+        <div id="section-assign" class="page-section">
+            <p class="page-title">Assign Asset to Accountable Party</p>
+            <p class="page-description">Select an asset and an Accountable Party to assign the work to.</p>
+ 
+            <div class="card">
+                <h2>Assignment Form</h2>
+ 
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="assign-asset">Select Asset:</label>
+                        <select id="assign-asset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="asset1">Asset 1</option>
+                            <option value="asset2">Asset 2</option>
+                        </select>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label for="assign-party">Assign To (Accountable Party):</label>
+                        <select id="assign-party">
+                            <option value="">-- Select Person --</option>
+                        </select>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label for="assign-date">Assignment Date:</label>
+                        <input type="date" id="assign-date">
+                    </div>
+ 
+                    <div class="form-group">
+                        <label for="assign-notes">Notes / Instructions:</label>
+                        <input type="text" id="assign-notes" placeholder="Optional instructions">
+                    </div>
+                </div>
+ 
+                <br>
+                <button class="btn btn-primary" style="width: auto; padding: 10px 28px;" onclick="submitAssignment()">
+                    Assign Asset
+                </button>
+ 
+                <div id="assign-message"></div>
+            </div>
+        </div>
+ 
+        <!-- ALL ASSIGNMENTS -->
+        <div id="section-assignments" class="page-section">
+            <p class="page-title">All Assignments</p>
+            <p class="page-description">All assets you have assigned to Accountable Parties and their current status.</p>
+ 
+            <div class="card">
+                <h2>Assignments List</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset SN</th>
+                                <th>Asset Name</th>
+                                <th>Assigned To</th>
+                                <th>Assigned Date</th>
+                                <th>Notes</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assignments-table-body">
+                            <tr><td colspan="6" class="no-data">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="assignments-message"></div>
+            </div>
+        </div>
+ 
+        <!-- WORK RECEIVED FORMS -->
+        <div id="section-received" class="page-section">
+            <p class="page-title">Work Received Forms</p>
+            <p class="page-description">Forms submitted by Accountable Parties when they received their assigned work.</p>
+ 
+            <div class="card">
+                <h2>Received Forms</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset SN</th>
+                                <th>Asset Name</th>
+                                <th>Received By</th>
+                                <th>Received Date</th>
+                                <th>Condition on Receiving</th>
+                                <th>Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody id="received-table-body">
+                            <tr><td colspan="6" class="no-data">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="received-message"></div>
+            </div>
+        </div>
+ 
+        <!-- COMPLETION FORMS -->
+        <div id="section-completions" class="page-section">
+            <p class="page-title">Work Completion Forms</p>
+            <p class="page-description">Forms submitted by Accountable Parties when they completed their work.</p>
+ 
+            <div class="card">
+                <h2>Completion Forms</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset SN</th>
+                                <th>Asset Name</th>
+                                <th>Submitted By</th>
+                                <th>Completion Date</th>
+                                <th>Work Done</th>
+                                <th>Problems</th>
+                                <th>Recommended Actions</th>
+                                <th>Final Condition</th>
+                            </tr>
+                        </thead>
+                        <tbody id="completions-table-body">
+                            <tr><td colspan="8" class="no-data">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="completions-message"></div>
+            </div>
+        </div>
+ 
+    </div>
+    <script src="js/manager.js"></script>
+</body>
+</html>

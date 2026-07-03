@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakElize - Accountable Party Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-logo">MakElize</div>
+        <div class="sidebar-role">Accountable Party</div>
+
+        <ul class="sidebar-nav">
+            <li class="active" onclick="showSection('section-assets', this)">My Assets</li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <span id="accountable-name">Loading...</span>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <!-- MY ASSETS SECTION -->
+        <div id="section-assets" class="page-section active">
+            <p class="page-title">My Assigned Assets</p>
+            <p class="page-description">
+                The list below shows all assets assigned to you. This is a read-only view.
+                Contact the Maintenance Manager if you need to report an emergency.
+            </p>
+
+            <div class="card">
+                <h2>Assets List</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset SN</th>
+                                <th>Asset Name</th>
+                                <th>Department</th>
+                                <th>Location</th>
+                                <th>Asset Group</th>
+                                <th>Description</th>
+                                <th>Warranty Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assets-table-body">
+                            <tr>
+                                <td colspan="7" class="no-data">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="assets-message"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/accountable.js"></script>
+</body>
+</html>
