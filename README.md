@@ -70,7 +70,7 @@ cd backend
 python app.py
 ```
 
-This will start the Flask server on port `####`.
+This will start the Flask server on port `5000`.
 
 ### Open the frontend
 
@@ -89,3 +89,4 @@ A SQL setup script is available at [database/MakElize_setup.sql](database/MakEli
 ## License
 
 This project is provided as-is for development purposes and skill improvement.
+
